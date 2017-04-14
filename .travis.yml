@@ -1,0 +1,9 @@
+language: csharp
+solution: NUsecase.sln
+mono: none
+dotnet: 1.0.1
+install:
+  - nuget restore NUsecase.sln
+  - nuget install NUnit.Runners -Version 3.5.0 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Release NUsecase.sln
