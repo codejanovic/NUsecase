@@ -1,19 +1,15 @@
 language: csharp
-solution: NUsecase.sln
-
-matrix:
-  include:
-  - os: linux
-    dist: xenial
-    dotnet: 1.0.1
-    mono: none
-    env: DOTNETCORE=1
-    sudo: required
-
-install:
-  - sudo apt-get install -y nuget
-  - nuget restore NUsecase.sln
-  - nuget install NUnit.Runners -Version 3.5.0 -OutputDirectory testrunner
-  
+dist: trusty
+env:
+  global:
+    - DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+    - DOTNET_CLI_TELEMETRY_OPTOUT: 1
+sudo: required
+mono: none
+dotnet: 1.0.1
+os:
+  - linux
 script:
-  - xbuild /p:Configuration=Release NUsecase.sln
+  - dotnet restore
+  - dotnet build NUsecase.sln -c Release -f netcoreapp1.1
+  - dotnet test NUsecase.Tests/NUsecase.Tests.csproj -c Release -f netcoreapp1.1
