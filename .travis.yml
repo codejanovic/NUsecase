@@ -11,5 +11,6 @@ os:
   - linux
 script:
   - dotnet restore
-  - dotnet build NUsecase.sln -c Release -f netcoreapp1.1
+  - dotnet build NUsecase/NUsecase.csproj -c Release -f netstandard1.4
+  - dotnet build NUsecase.Tests/NUsecase.Tests.csproj -c Release -f netcoreapp1.1
   - dotnet test NUsecase.Tests/NUsecase.Tests.csproj -c Release -f netcoreapp1.1
