@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using NUsecase.Tests.usecaseExecutors;
+using NUsecase.Tests.usecaseExtensions;
 using NUsecase.Tests.usecases;
 
 namespace NUsecase.Tests
@@ -25,6 +26,16 @@ namespace NUsecase.Tests
         public void TestAdditionWithCalculator()
         {
             GivenUsecase(r => new CalculatorUsecaseExecutor().Execute<AdditionUsecase.Request, AdditionUsecase.Response>(r));
+            GivenRequest(new AdditionUsecase.Request(1,2));
+            WhenRequestIsExecuted();
+            ThenResponseIsNotNull();
+            ThenResponseIs(new AdditionUsecase.Response(3));
+        }
+
+        [Test]
+        public void TestAdditionWithCalculatorExtension()
+        {
+            GivenUsecase(r => new CalculatorUsecaseExecutor().Add(r.A, r.B));
             GivenRequest(new AdditionUsecase.Request(1,2));
             WhenRequestIsExecuted();
             ThenResponseIsNotNull();
