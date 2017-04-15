@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NUsecase
+﻿namespace NUsecase
 {
     public interface IUsecase<in TRequest, out TResponse> {
         TResponse Execute(TRequest request);

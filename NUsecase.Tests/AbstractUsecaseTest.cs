@@ -1,5 +1,5 @@
 ﻿using System;
-using NUnit.Framework;
+using Xunit;
 
 namespace NUsecase.Tests
 {
@@ -16,9 +16,9 @@ namespace NUsecase.Tests
         private TResponse _response;
         private Exception _error;
 
-        [SetUp]
-        public void Setup()
+        protected AbstractUsecaseTest()
         {
+            _usecase = null;
             _request = null;
             _response = null;
             _error = null;
@@ -38,7 +38,7 @@ namespace NUsecase.Tests
 
         protected void WhenRequestIsExecuted()
         {
-            Assert.NotNull(_request, "Expected request, but received null. Did you call GivenRequest() in your test?");
+            Assert.NotNull(_request);
             try
             {
                 _response = _usecase(_request);
@@ -51,7 +51,7 @@ namespace NUsecase.Tests
 
         protected void ThenResponseIs(TResponse expected)
         {
-            Assert.IsTrue(IsEqual(_response, expected));
+            Assert.True(IsEqual(_response, expected));
         }
 
         protected void ThenResponseIsNotNull()
@@ -61,13 +61,13 @@ namespace NUsecase.Tests
 
         protected void ThenErrorIsOfType<TError>()
         {
-            Assert.IsInstanceOf<TError>(_error);
+            Assert.IsType<TError>(_error);
         }
 
         protected void ThenErrorMessageIs(String expected)
         {
-            Assert.NotNull(_error, $"Expected error with message '{expected}', but nothing was thrown.");
-            Assert.AreEqual(expected, _error.Message);
+            Assert.NotNull(_error);
+            Assert.Equal(expected, _error.Message);
         }
     }
 }

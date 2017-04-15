@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using NUsecase.Tests.usecaseExecutors;
+﻿using NUsecase.Tests.usecaseExecutors;
 using NUsecase.Tests.usecaseExtensions;
 using NUsecase.Tests.usecases;
+using Xunit;
 
 namespace NUsecase.Tests
 {
@@ -12,7 +12,7 @@ namespace NUsecase.Tests
             return left.Result.Equals(right.Result);
         }
 
-        [Test]
+        [Fact]
         public void TestAddition()
         {
             GivenUsecase(r => new AdditionUsecase().Execute(r));
@@ -22,7 +22,7 @@ namespace NUsecase.Tests
             ThenResponseIs(new AdditionUsecase.Response(3));
         }
 
-        [Test]
+        [Fact]
         public void TestAdditionWithCalculator()
         {
             GivenUsecase(r => new CalculatorUsecaseExecutor().Execute<AdditionUsecase.Request, AdditionUsecase.Response>(r));
@@ -32,7 +32,7 @@ namespace NUsecase.Tests
             ThenResponseIs(new AdditionUsecase.Response(3));
         }
 
-        [Test]
+        [Fact]
         public void TestAdditionWithCalculatorExtension()
         {
             GivenUsecase(r => new CalculatorUsecaseExecutor().Add(r.A, r.B));
